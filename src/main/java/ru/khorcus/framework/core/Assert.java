@@ -1,4 +1,4 @@
-package ru.khorcus.framework;
+package ru.khorcus.framework.core;
 
 public class Assert {
 
@@ -45,46 +45,45 @@ public class Assert {
         }
     }
 
-    //TODO: write assertEquals for arrays
-
-    private static boolean doubleIsDifferent(double d1, double d2, double delta) {
-        if (Double.compare(d1, d2) == 0) {
-            return false;
-        }
-        return (Math.abs(d1 - d2) > delta);
-    }
-
-    private static boolean floatIsDifferent(float d1, float d2, float delta) {
-        if (Float.compare(d1, d2) == 0) {
-            return false;
-        }
-        return (Math.abs(d1 - d2) > delta);
-    }
-
-
-    private static void fail(String message) {
+    public static void fail(String message) {
         if (message == null) {
             throw new AssertionError();
         }
         throw new AssertionError(message);
     }
 
-    private static void fail() {
+    public static void fail() {
         fail(null);
     }
 
-    private static boolean equalsRegardingNull(Object expected, Object actual) {
+    //TODO: write assertEquals for arrays
+
+    protected static boolean doubleIsDifferent(double d1, double d2, double delta) {
+        if (Double.compare(d1, d2) == 0) {
+            return false;
+        }
+        return (Math.abs(d1 - d2) > delta);
+    }
+
+    protected static boolean floatIsDifferent(float d1, float d2, float delta) {
+        if (Float.compare(d1, d2) == 0) {
+            return false;
+        }
+        return (Math.abs(d1 - d2) > delta);
+    }
+
+    protected static boolean equalsRegardingNull(Object expected, Object actual) {
         if (expected == null) {
             return actual == null;
         }
         return isEquals(expected, actual);
     }
 
-    private static boolean isEquals(Object expected, Object actual) {
+    protected static boolean isEquals(Object expected, Object actual) {
         return expected.equals(actual);
     }
 
-    private static String format(Object expected, Object actual) {
+    protected static String format(Object expected, Object actual) {
         String expectedString = String.valueOf(expected);
         String actualString = String.valueOf(actual);
         if (equalsRegardingNull(expectedString, actualString)) {
@@ -96,7 +95,7 @@ public class Assert {
         }
     }
 
-    private static String formatClassAndValue(Object value, String valueString) {
+    protected static String formatClassAndValue(Object value, String valueString) {
         String className = value == null ? "null" : value.getClass().getName();
         return className + "<" + valueString + ">";
     }
