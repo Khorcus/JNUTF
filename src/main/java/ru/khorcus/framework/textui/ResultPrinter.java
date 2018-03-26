@@ -3,22 +3,13 @@ package ru.khorcus.framework.textui;
 import ru.khorcus.framework.core.TestResult;
 
 import java.io.PrintStream;
-import java.text.NumberFormat;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class ResultPrinter implements Printer {
+public class ResultPrinter extends BasePrinter {
 
     private PrintStream fWriter;
 
     public ResultPrinter(PrintStream fWriter) {
         this.fWriter = fWriter;
-    }
-
-    @Override
-    public void print(TestResult result, long runTime) {
-        printHeader(result ,runTime);
-        printResult(result);
     }
 
     protected void printHeader(TestResult result, long runTime) {
@@ -48,13 +39,4 @@ public class ResultPrinter implements Printer {
         fWriter.println("--------------------------------");
     }
 
-    protected String elapsedTimeAsString(long runTime) {
-        return NumberFormat.getInstance().format((double)runTime / 1000.0D);
-    }
-
-    protected String stackTraceToString(StackTraceElement[] stackTrace) {
-        return Stream.of(stackTrace)
-                .map(StackTraceElement::toString)
-                .collect(Collectors.joining("\n", "[", "]"));
-    }
 }
