@@ -7,23 +7,22 @@ import ru.khorcus.framework.core.TestResult;
 public class Log4JPrinter extends BasePrinter{
 
     private final static Logger logger = LoggerFactory.getLogger(Log4JPrinter.class);
+    StringBuilder stringBuilder = new StringBuilder();
+
 
 
     @Override
     protected void printHeader(TestResult result, long runTime) {
-        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n")
                 .append(result.getTestMethod())
                 .append("\n")
                 .append("Time: ")
                 .append(elapsedTimeAsString(runTime))
                 .append("\n");
-        logger.info(stringBuilder.toString());
     }
 
     @Override
     protected void printResult(TestResult result) {
-        StringBuilder stringBuilder = new StringBuilder();
         if (result.wasSuccessful()) {
             stringBuilder.append("\n")
                     .append("OK: Run was successful")
