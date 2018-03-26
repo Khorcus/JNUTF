@@ -87,10 +87,10 @@ public class Assert {
         String expectedString = String.valueOf(expected);
         String actualString = String.valueOf(actual);
         if (equalsRegardingNull(expectedString, actualString)) {
-            return "expected: " + formatClassAndValue(expected, expectedString)
+            return "Expected: " + formatClassAndValue(expected, expectedString)
                     + " but was: " + formatClassAndValue(actual, actualString);
         } else {
-            return "expected: <" + expectedString
+            return "Expected: <" + expectedString
                     + "> but was: <" + actualString + ">";
         }
     }

@@ -7,10 +7,13 @@ import ru.khorcus.framework.textui.Printer;
 import ru.khorcus.framework.textui.ResultPrinter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestRunner implements Runner {
 
-    private final ClassRunner classRunner;
+    private List<ClassRunner> classRunnerList = new ArrayList<>();
+    private ClassRunner classRunner;
     private final Printer printer;
 
     public TestRunner(ClassRunner classRunner, Printer printer) {
@@ -18,13 +21,44 @@ public class TestRunner implements Runner {
         this.printer = printer;
     }
 
+    public TestRunner(List<ClassRunner> classRunnerList, Printer printer) {
+        this.classRunnerList = classRunnerList;
+        this.printer = printer;
+    }
+
+    public TestRunner(ClassRunner classRunner) {
+        this.classRunner = classRunner;
+        this.printer = new ResultPrinter(System.out);
+    }
+
+    public TestRunner(List<ClassRunner> classRunnerList) {
+        this.classRunnerList = classRunnerList;
+        this.printer = new ResultPrinter(System.out);
+    }
+
     public TestRunner(Class<?> testClass) {
-        classRunner = new Jnutf(testClass);
-        printer = new ResultPrinter(System.out);
+        this.classRunner = new Jnutf(testClass);
+        this.printer = new ResultPrinter(System.out);
+    }
+    public TestRunner(Class<?> testClass, Printer printer) {
+        this.classRunner = new Jnutf(testClass);
+        this.printer = printer;
     }
 
     @Override
     public void run() {
+        if (classRunner != null) {
+            runTest(classRunner);
+        } else {
+            for (ClassRunner classRunner : classRunnerList) {
+                runTest(classRunner);
+            }
+        }
+
+
+    }
+
+    protected void runTest(ClassRunner classRunner) {
         for (Method testMethod : classRunner.getTestMethods()) {
             long startTime = System.currentTimeMillis();
             TestResult result = classRunner.runTestMethod(testMethod);

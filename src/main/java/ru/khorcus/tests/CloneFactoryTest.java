@@ -16,8 +16,8 @@ public class CloneFactoryTest {
 
     @Test
     public void createCloneTest() {
-        Clone expected = new Clone("Alex", 19);
-        Clone actual = cloneFactory.createClone("Alex", 20);
+        Clone expected = new Clone("Alex", 19, 100);
+        Clone actual = cloneFactory.createClone("Alex", 20, 11);
         Assert.assertEquals(expected, actual);
     }
 }
