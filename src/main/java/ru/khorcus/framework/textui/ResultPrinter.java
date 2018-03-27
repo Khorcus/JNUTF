@@ -14,7 +14,7 @@ public class ResultPrinter extends BasePrinter {
 
     protected void printHeader(TestResult result, long runTime) {
         fWriter.println();
-        fWriter.println(result.getTestMethod());
+        fWriter.println("@Test[" + result.getTestMethod() + "]");
         fWriter.println("Time: "+ elapsedTimeAsString(runTime));
     }
 

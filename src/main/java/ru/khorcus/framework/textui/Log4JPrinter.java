@@ -14,8 +14,9 @@ public class Log4JPrinter extends BasePrinter{
     @Override
     protected void printHeader(TestResult result, long runTime) {
         stringBuilder.append("\n")
+                .append("@Test[")
                 .append(result.getTestMethod())
-                .append("\n")
+                .append("]\n")
                 .append("Time: ")
                 .append(elapsedTimeAsString(runTime))
                 .append("\n");
@@ -30,6 +31,7 @@ public class Log4JPrinter extends BasePrinter{
                     .append("--------------------------------")
                     .append("\n");
             logger.info(stringBuilder.toString());
+            stringBuilder = new StringBuilder();
         } else {
             stringBuilder.append("\n")
                     .append("FAILURES!!! Run was not successful")
@@ -49,6 +51,7 @@ public class Log4JPrinter extends BasePrinter{
             }
             stringBuilder.append("--------------------------------").append("\n");
             logger.error(stringBuilder.toString());
+            stringBuilder = new StringBuilder();
         }
 
     }
